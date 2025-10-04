@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher's Day Letters 2025</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .save-all-btn {
+            background: #FF5722;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-top: 15px;
+            display: inline-block;
+        }
+
+        .save-all-btn:hover {
+            background: #E64A19;
+        }
+
+        .status-message {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            display: none;
+        }
+
+        .status-message.show {
+            display: block;
+        }
+
+        .status-message.success {
+            background: #4CAF50;
+            color: white;
+        }
+
+        h1 {
+            color: #d97757;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1em;
+            margin-top: 10px;
+        }
+
+        .teachers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .teacher-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            border-top: 5px solid #d97757;
+        }
+
+        .teacher-name {
+            font-size: 1.2em;
+            color: #333;
+            font-weight: bold;
+            margin: 15px 0;
+            text-align: center;
+        }
+
+        .teacher-icon {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto;
+            display: block;
+            object-fit: cover;
+            border: 4px solid #d97757;
+            background: #f0f0f0;
+        }
+
+        .upload-btn {
+            background: #4CAF50;
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            width: 100%;
+            margin-top: 10px;
+            font-weight: bold;
+            display: block;
+        }
+
+        .read-letter-btn {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            color: #8b4513;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            width: 100%;
+            margin-top: 10px;
+            font-weight: bold;
+            display: block;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #fffef7;
+            border-radius: 10px;
+            padding: 40px;
+            max-width: 700px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            border: 2px solid #d97757;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2em;
+            cursor: pointer;
+            color: #999;
+            background: none;
+            border: none;
+            padding: 0;
+            width: auto;
+        }
+
+        .letter-date {
+            text-align: right;
+            color: #666;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .letter-greeting {
+            font-size: 1.4em;
+            color: #d97757;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .letter-body {
+            font-size: 1.1em;
+            line-height: 1.9;
+            color: #333;
+            text-align: justify;
+            margin-bottom: 30px;
+        }
+
+        .letter-body p {
+            margin-bottom: 20px;
+        }
+
+        .letter-signature {
+            margin-top: 40px;
+            text-align: right;
+            font-style: italic;
+            color: #666;
+        }
+
+        .letter-signature p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>✉️ Teacher's Day Letters ✉️</h1>
+            <p class="subtitle">October 1-5, 2025</p>
+            <p class="subtitle">Personal Messages of Gratitude</p>
+            <button class="save-all-btn" onclick="saveAllPhotos()">💾 Save All Photos</button>
+            <div id="statusMessage" class="status-message"></div>
+        </div>
+
+        <div class="teachers-grid" id="teachersGrid"></div>
+    </div>
+
+    <div id="modal" class="modal" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="close-btn" onclick="closeModal()">&times;</button>
+            <div class="letter-date">October 5, 2025</div>
+            <div class="letter-greeting" id="letterGreeting"></div>
+            <div class="letter-body" id="letterBody"></div>
+            <div class="letter-signature">
+                <p>With heartfelt gratitude,</p>
+                <p><strong>Your Students</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const teachers = [
+            {
+                name: "Ma'am Aljenn Amancio",
+                icon: "https://via.placeholder.com/120/FF6B9D/FFFFFF?text=AJA",
+                letter: `<p>We want to take this special moment to express our deepest gratitude for your exceptional dedication to teaching. Your passion for education shines through in every lesson you deliver, and your commitment to our success never goes unnoticed.</p><p>You have a remarkable ability to make complex subjects understandable and engaging. Your patience with each student, regardless of their learning pace, demonstrates the true heart of an educator. You don't just teach us facts and figures; you inspire us to think critically and believe in our potential.</p><p>Thank you for creating a classroom environment where we feel safe to ask questions, make mistakes, and grow. Your encouragement has given many of us the confidence to pursue our dreams. You are more than a teacher—you are a mentor and a role model.</p><p>Happy Teacher's Day, Ma'am Aljenn! We are truly blessed to have you as our teacher.</p>`
+            },
+            {
+                name: "Ma'am Shane Abion",
+                icon: "https://via.placeholder.com/120/C780E8/FFFFFF?text=SA",
+                letter: `<p>Your energy and enthusiasm in the classroom are truly contagious! Every day, you bring a positive spirit that makes learning enjoyable and exciting. Your creative teaching methods have helped us discover that education can be both challenging and fun.</p><p>What sets you apart is your genuine care for each of your students. You take time to understand our individual strengths and challenges, and you adapt your teaching to help everyone succeed. Your kindness and approachability make it easy for us to come to you with our concerns and questions.</p><p>You've taught us that mistakes are stepping stones to success and that perseverance is key to achievement. These life lessons extend far beyond the classroom and will stay with us forever.</p><p>Thank you, Ma'am Shane, for being such an inspiring and dedicated teacher. Happy Teacher's Day!</p>`
+            },
+            {
+                name: "Ma'am Rose Catalon",
+                icon: "https://via.placeholder.com/120/F7B731/FFFFFF?text=RC",
+                letter: `<p>Your wisdom and experience have been invaluable to us throughout our learning journey. You have a unique gift for breaking down difficult concepts into understandable pieces, making even the most challenging subjects accessible to all students.</p><p>We admire your unwavering commitment to excellence and your high standards that push us to do our best. You've shown us that with hard work and determination, we can achieve things we never thought possible. Your belief in our abilities has motivated us to reach for higher goals.</p><p>Beyond academics, you've taught us important values like integrity, responsibility, and respect. You lead by example, and we are grateful to have such a strong role model guiding us.</p><p>Happy Teacher's Day, Ma'am Rose! Thank you for everything you do to shape our futures.</p>`
+            },
+            {
+                name: "Ma'am Marga Pizarro",
+                icon: "https://via.placeholder.com/120/5F27CD/FFFFFF?text=MP",
+                letter: `<p>Your innovative teaching style has transformed the way we see learning. You bring such creativity and freshness to every lesson, making education feel relevant and exciting. Your ability to connect course material to real-world applications helps us understand why what we're learning matters.</p><p>We appreciate how you encourage us to think outside the box and express our unique perspectives. You've created an inclusive classroom where every voice is heard and valued. Your respect for diverse opinions has taught us the importance of open-mindedness and critical thinking.</p><p>Your dedication extends beyond classroom hours—the extra time you spend preparing engaging lessons and providing feedback on our work does not go unnoticed. You truly go above and beyond for your students.</p><p>Thank you, Ma'am Marga, for inspiring us to be creative thinkers and lifelong learners. Happy Teacher's Day!</p>`
+            },
+            {
+                name: "Ma'am Clarissa Regaya",
+                icon: "https://via.placeholder.com/120/54A0FF/FFFFFF?text=CR",
+                letter: `<p>Your gentle guidance and compassionate approach to teaching have made a profound impact on all of us. You have a special way of making every student feel valued and important, creating a warm and supportive learning environment where we can thrive.</p><p>We are grateful for your patience and understanding, especially during difficult times. You've shown us that education is not just about academic achievement but also about personal growth and emotional well-being. Your words of encouragement have lifted our spirits on challenging days.</p><p>You've taught us to be kind to ourselves and others, to embrace our uniqueness, and to never stop learning. These lessons have shaped not just our minds but our characters as well.</p><p>Happy Teacher's Day, Ma'am Clarissa! Thank you for being such a caring and wonderful teacher.</p>`
+            },
+            {
+                name: "Ma'am Rose Paz",
+                icon: "https://via.placeholder.com/120/48DBFB/FFFFFF?text=RP",
+                letter: `<p>Your dedication to our education and personal development is truly admirable. You bring such depth and knowledge to your teaching, and your love for your subject is evident in every lesson. You've sparked curiosity and enthusiasm in us that extends beyond the classroom.</p><p>What we appreciate most is how you challenge us to think deeply and question assumptions. You've taught us that learning is not about memorizing facts but about understanding concepts and developing our analytical skills. Your thought-provoking questions have helped us become better critical thinkers.</p><p>You've also shown us the importance of continuous improvement and never settling for mediocrity. Your high expectations have pushed us to work harder and achieve more than we thought we could.</p><p>Thank you, Ma'am Rose, for being an exceptional educator and mentor. Happy Teacher's Day!</p>`
+            },
+            {
+                name: "Sir Jecco Arquiza",
+                icon: "https://via.placeholder.com/120/0ABDE3/FFFFFF?text=JA",
+                letter: `<p>Your dynamic teaching style and enthusiasm for your subject have made learning an adventure! You bring energy and excitement to every class, making even complex topics engaging and accessible. Your passion for education is truly inspiring.</p><p>We appreciate how you connect with students on a personal level and take genuine interest in our success. You've created a classroom atmosphere where we feel comfortable participating and sharing ideas. Your sense of humor and positive attitude make coming to class something we look forward to.</p><p>You've taught us that education should be enjoyable and that learning doesn't have to be a chore. You've also shown us the value of hard work balanced with maintaining a positive outlook on life.</p><p>Happy Teacher's Day, Sir Jecco! Thank you for making a difference in our lives with your dedication and passion.</p>`
+            },
+            {
+                name: "Sir Mark Incomio",
+                icon: "https://via.placeholder.com/120/00D2D3/FFFFFF?text=MI",
+                letter: `<p>Your expertise and professionalism in teaching are truly remarkable. You bring such clarity and structure to your lessons, making it easy for us to follow along and understand complex material. Your organized approach helps us stay focused and motivated.</p><p>We admire your commitment to ensuring every student grasps the concepts before moving forward. You're always willing to explain things in different ways until we understand, and you never make us feel bad for asking questions. Your patience and dedication to our success are truly appreciated.</p><p>Beyond teaching us academic content, you've instilled in us important values like discipline, responsibility, and the importance of attention to detail. These skills will serve us well throughout our lives.</p><p>Thank you, Sir Mark, for your excellent teaching and unwavering support. Happy Teacher's Day!</p>`
+            },
+            {
+                name: "Sir James Cayao",
+                icon: "https://via.placeholder.com/120/1DD1A1/FFFFFF?text=JC",
+                letter: `<p>Your approachable nature and supportive teaching style have created a wonderful learning environment for all of us. You have a gift for making students feel comfortable and confident, which has helped many of us overcome our fears and participate more actively in class.</p><p>We value how you relate lessons to practical, real-world situations, helping us see the relevance of what we're learning. Your examples and stories make the material come alive and stick in our memories. You've shown us that education is not confined to textbooks but is all around us.</p><p>Your encouragement and belief in our abilities have boosted our confidence tremendously. You've taught us to believe in ourselves and to not be afraid of challenges.</p><p>Happy Teacher's Day, Sir James! Thank you for being such an inspiring and dedicated educator.</p>`
+            },
+            {
+                name: "Sir Jin Alzona",
+                icon: "https://via.placeholder.com/120/10AC84/FFFFFF?text=JA",
+                letter: `<p>Your innovative teaching methods and modern approach to education have opened our eyes to new ways of learning. You embrace technology and contemporary teaching tools in ways that make lessons more interactive and engaging. Your forward-thinking approach prepares us for the future.</p><p>We appreciate your flexibility and willingness to adapt your teaching style to meet our needs. You listen to our feedback and continuously strive to improve the learning experience. This shows your genuine commitment to our education and success.</p><p>You've taught us to be adaptable, to embrace change, and to see challenges as opportunities for growth. Your mentorship extends beyond academics—you've helped shape our mindset and approach to life.</p><p>Thank you, Sir Jin, for being an outstanding teacher and role model. Happy Teacher's Day!</p>`
+            }
+        ];
+
+        function renderTeachers() {
+            const grid = document.getElementById('teachersGrid');
+            teachers.forEach((teacher, index) => {
+                const card = document.createElement('div');
+                card.className = 'teacher-card';
+                card.innerHTML = `
+                    <img src="${teacher.icon}" alt="${teacher.name}" class="teacher-icon" id="img-${index}">
+                    <div class="teacher-name">${teacher.name}</div>
+                    <input type="file" class="file-input" id="file-${index}" accept="image/*" onchange="uploadImage(${index})">
+                    <button class="upload-btn" onclick="document.getElementById('file-${index}').click()">
+                        📷 Upload Photo
+                    </button>
+                    <button class="read-letter-btn" onclick="showLetter(${index})">
+                        📖 Read Letter
+                    </button>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function uploadImage(index) {
+            const fileInput = document.getElementById(`file-${index}`);
+            const imgElement = document.getElementById(`img-${index}`);
+            
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    imgElement.src = e.target.result;
+                    teachers[index].icon = e.target.result;
+                };
+                
+                reader.readAsDataURL(fileInput.files[0]);
+            }
+        }
+
+        function showLetter(index) {
+            const teacher = teachers[index];
+            const modal = document.getElementById('modal');
+            
+            document.getElementById('letterGreeting').textContent = `Dear ${teacher.name},`;
+            document.getElementById('letterBody').innerHTML = teacher.letter;
+            
+            modal.className = 'modal show';
+        }
+
+        function closeModal(event) {
+            const modal = document.getElementById('modal');
+            modal.className = 'modal';
+        }
+
+        renderTeachers();
+    </script>
+</body>
+</html>
